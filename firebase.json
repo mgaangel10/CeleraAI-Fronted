@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/celera-ai",
+    "public": "dist/celera-ai/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

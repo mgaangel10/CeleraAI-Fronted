@@ -22,7 +22,7 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
 
-  url='https://tu-backend-en-render.onrender.com';
+  url='https://celeraai-backend.onrender.com';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/auth/login/user`,
