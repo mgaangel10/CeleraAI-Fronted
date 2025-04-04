@@ -21,7 +21,7 @@ import { RegisterResponse } from '../model/register-response';
 export class UsuarioService {
 
   constructor(private http:HttpClient) { }
-
+  //url de backend
   url='https://celeraai-backend.onrender.com';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
