@@ -22,7 +22,7 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
 
-  url='http://localhost:9000';
+  url='https://tu-backend-en-render.onrender.com';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/auth/login/user`,
