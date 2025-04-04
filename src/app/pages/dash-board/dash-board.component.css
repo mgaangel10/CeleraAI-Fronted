@@ -1,0 +1,23 @@
+/* Estilo para hacer que el contenedor de la lista tenga scroll si el contenido excede la altura */
+.ventas-scrollable {
+    max-height: 150px; /* Ajusta esta altura según el tamaño que prefieras */
+    overflow-y: auto;  /* Agrega scroll vertical si es necesario */
+    padding-right: 10px; /* Para evitar que el scroll se "pegue" a la derecha */
+  }
+  
+
+  .business-card-gold {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fffbe6, #fdf2cc);
+    border: 1px solid #f8e4a0;
+    box-shadow: 0 8px 20px rgba(212, 176, 72, 0.15);
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .business-card-gold:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(212, 176, 72, 0.25);
+  }
+  
+  
+  
