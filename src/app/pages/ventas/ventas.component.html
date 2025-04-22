@@ -48,51 +48,53 @@
             </div>
             <div class="card-body">
               <div *ngIf="creandoVentas?.detalleVentas?.length; else noProductos">
-                <ul class="list-group">
-                  <li class="list-group-item" >
-                    <table class="table table-hover mx-auto text-center" >
-                      <thead>
-                        <tr>
-                          
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Precio</th>
-                          <th scope="col">Cantidad</th>
-                          <th scope="col">Añadir/Quitar</th>
-
-                        </tr>
-                      </thead>
-                      <tbody *ngFor="let v of creandoVentas?.detalleVentas">
-                        <tr>
-                          <th>{{v.nombreProducto}}</th>
-                          <th>{{v.precioProducto}}€</th>
-                          <th >{{v.cantida}} 
-
-                          </th>
-                          <th><button class="btn  btn-success w-25"><svg xmlns="http://www.w3.org/2000/svg" (click)="agregarCantidad(v.id)" width="16" height="16" fill="currentColor" class="bi bi-plus me-2 ms-2" viewBox="0 0 16 16">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                          </svg></button> <button class="btn  btn-danger w-25"><svg xmlns="http://www.w3.org/2000/svg" (click)="quitarCantidad(v.id)" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-                          </svg></button> 
-                          </th>
-                          
-                        </tr>
-                       
-                      </tbody>
-                    </table>
-                  
-                  </li>
-                </ul>
-                <div class="w-100 mx-auto text-center mt-3">
                 
-                  <button class="btn  btn-success w-25 " (click)="terminarVenta(creandoVentas.id)" >Terminar venta: {{creandoVentas.total}}€</button>
-
+                <!-- Responsive table wrapper -->
+                <div class="table-responsive">
+                  <table class="table table-hover text-center align-middle">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let v of creandoVentas?.detalleVentas">
+                        <td>{{ v.nombreProducto }}</td>
+                        <td>{{ v.precioProducto }}€</td>
+                        <td>{{ v.cantida }}</td>
+                        <td>
+                          <div class="d-flex justify-content-center gap-2">
+                            <button class="btn btn-sm btn-success" (click)="agregarCantidad(v.id)">
+                              <i class="bi bi-plus"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" (click)="quitarCantidad(v.id)">
+                              <i class="bi bi-dash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
+            
+                <!-- Botón terminar venta -->
+                <div class="w-100 text-center mt-3">
+                  <button class="btn btn-success px-4 py-2 rounded-pill"
+                          (click)="terminarVenta(creandoVentas.id)">
+                    Terminar venta: {{ creandoVentas.total }}€
+                  </button>
+                </div>
+            
               </div>
+            
               <ng-template #noProductos>
-                <p class="text-center text-muted">Añade productos para una nueva venta.</p>
+                <p class="text-center text-muted mt-4">🛒 Añade productos para una nueva venta.</p>
               </ng-template>
-              
             </div>
+            
             
           </div>
         </div>
