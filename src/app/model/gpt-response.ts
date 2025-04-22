@@ -1,13 +1,10 @@
 export interface ChatGPTResponse {
-    accion:  Accion;
-    mensaje: string;
+    accion:   string;
+    tipo:     string;
+    datos:    Datos;
+    response: string;
 }
 
-export interface Accion {
-    accion:           string;
-    precio:           number;
-    categoria:        string;
-    precio_proveedor: number;
-    stock:            number;
-    nombre:           string;
+export interface Datos {
+    productos: string[];
 }

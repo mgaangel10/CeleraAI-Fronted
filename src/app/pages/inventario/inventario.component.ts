@@ -43,6 +43,9 @@ export class InventarioComponent implements OnInit{
     this.detallesNegocios();
     this.cargarProductos();
     this.detallesNegocios();
+    this.mayorPrecio();
+    this.mayorStock();
+    this.menorStock();
     
   }
 
@@ -82,7 +85,7 @@ export class InventarioComponent implements OnInit{
   alfabeticamente(){
     let id = localStorage.getItem('IDNEGOCIO');
     this.service.ordenarProductoAlfabeticamente(id!).subscribe(r=>{
-      this.productos = r
+      this.allproductos = r
       
       
         })
@@ -91,7 +94,8 @@ export class InventarioComponent implements OnInit{
   mayorStock(){
     
     this.service.productoMayorStock(this.negocioId!).subscribe(r=>{
-      this.productos = r
+      this.allproductos = r
+      console.log("se filtra")
       
         })
   }
@@ -99,7 +103,7 @@ export class InventarioComponent implements OnInit{
   menorStock(){
     
     this.service.productoMeborStock(this.negocioId!).subscribe(r=>{
-      this.productos = r
+      this.allproductos = r
       
         })
   }
@@ -107,7 +111,7 @@ export class InventarioComponent implements OnInit{
   mayorPrecio(){
     let id = localStorage.getItem('IDNEGOCIO');
     this.service.productoMayorPrecio(id!).subscribe(r=>{
-      this.productos = r
+      this.allproductos = r
       
         })
   }
@@ -156,10 +160,24 @@ export class InventarioComponent implements OnInit{
 		this.modalService.open(content);
 	}
 
-  open2(contentE:any,id:string) {
+  open2(contentE: any, id: string) {
     this.productoId = id;
-		this.modalService.open(contentE);
-	}
+  
+    // Busca el producto en tu lista de productos por el ID
+    const producto = this.productos.find(p => p.id === id);
+  
+    if (producto) {
+      this.profileLogin.patchValue({
+        nombre: producto.nombre,
+        precio: producto.precio,
+        stock: producto.stock,
+        precioProveedor: producto.precioProveedor
+      });
+    }
+  
+    this.modalService.open(contentE, { size: 'lg' });
+  }
+  
 
   onFileSelected(event: any): void {
     this.archivoSeleccionado = event.target.files[0];

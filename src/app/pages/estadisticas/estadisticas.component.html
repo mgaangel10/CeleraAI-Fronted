@@ -31,7 +31,7 @@
 
     <div class="w-100 py-4">
       <!-- Estadísticas de ingresos/gastos/beneficio -->
-      <div class="row g-4 justify-content-center">
+      <div class="row g-4 justify-content-center w-75 mx-auto">
         
         <!-- Ingresos -->
         <div class="col-md-4 col-lg-3">
@@ -81,30 +81,31 @@
       
     
       <!-- Gráfico de productos -->
-      <div class=" mt-5 justify-content-center d-flex">
-        <div class="col-12 col-md-10 col-lg-8 w-50">
-          <div class="card shadow-sm border-0 rounded-4 p-4">
-            <h3 class="text-center mb-4 text-dark">Productos más vendidos esta semana</h3>
-            <ngx-charts-bar-vertical
-              [view]="view"
-              [results]="chartData"
-              [gradient]="gradient"
-              [xAxis]="showXAxis"
-              [yAxis]="showYAxis"
-              [legend]="showLegend"
-              [showXAxisLabel]="showXAxisLabel"
-              [showYAxisLabel]="showYAxisLabel"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
-          </div>
-        </div>
+      
+      <div class="container px-2 mt-3">
+        <mat-card class="shadow rounded-4 p-3" style="max-width: 700px; margin: 0 auto;">
+          <mat-card-title class="text-center fs-5 fw-bold text-primary">📈 Estadísticas de Ventas</mat-card-title>
+          <mat-card-content>
+            <div style="overflow-x: auto;">
+              <canvas baseChart
+                #chart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="'bar'">
+              </canvas>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+        
+     
+        
               <!-- 🔒 Sección premium bloqueada -->
 <div class="row g-4 mt-3 justify-content-center w-100">
   
   <!-- Comparativa mensual -->
-  <div class="col-md-4 col-lg-3 w-100">
-    <div class="card shadow-sm border-0 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
+  <div class="col-md-4 col-lg-3 w-75">
+    <div class="card shadow rounded-4 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
       <div class="card-body">
         <span class="text-muted">Comparativa mensual</span>
         <h5 class="fw-bold mt-2">+18% respecto a marzo</h5>
@@ -122,8 +123,8 @@
   </div>
 
   <!-- Tasa de conversión -->
-  <div class="col-md-4 col-lg-3 w-100">
-    <div class="card shadow-sm border-0 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
+  <div class="col-md-4 col-lg-3 w-75">
+    <div class="card shadow rounded-4 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
       <div class="card-body">
         <span class="text-muted">Tasa de conversión</span>
         <h5 class="fw-bold mt-2">4.7%</h5>
@@ -139,8 +140,8 @@
   </div>
 
   <!-- Clientes recurrentes -->
-  <div class="col-md-4 col-lg-3 w-100">
-    <div class="card shadow-sm border-0 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
+  <div class="col-md-4 col-lg-3 w-75">
+    <div class="card shadow rounded-4 rounded-4 position-relative overflow-hidden" style="opacity: 0.6;">
       <div class="card-body">
         <span class="text-muted">Clientes recurrentes</span>
         <h5 class="fw-bold mt-2">36%</h5>
@@ -156,7 +157,7 @@
   </div>
 
 </div>
-      </div>
+      
 
 
     </div>

@@ -177,14 +177,14 @@ export class VentasComponent implements OnInit {
   ventasConFactura(){
     let id = localStorage.getItem('IDNEGOCIO');
     this.service.ventasConFactura(id!).subscribe(r=>{
-      this.todasVentas = r;
+      this.alltodasVentas = r;
     })
   }
 
   ventasEditables(){
     let id = localStorage.getItem('IDNEGOCIO');
     this.service.ventasEditables(id!).subscribe(r=>{
-      this.todasVentas = r;
+      this.alltodasVentas = r;
     })
   }
   agregarCantidad(id:string){
@@ -205,7 +205,7 @@ export class VentasComponent implements OnInit {
   ventasTotaVentas(){
     let id = localStorage.getItem('IDNEGOCIO');
     this.service.ventasConTotalVentas(id!).subscribe(r=>{
-      this.todasVentas = r;
+      this.alltodasVentas = r;
     })
   }
 

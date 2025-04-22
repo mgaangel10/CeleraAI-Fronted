@@ -10,3 +10,10 @@
     transform: translateY(-4px);
     box-shadow: 0 12px 28px rgba(212, 176, 72, 0.25);
   }
+
+  .grafico-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  

@@ -31,7 +31,7 @@ export class AsistenteComponent implements OnInit{
     this.service.preguntarAsistente(this.profileLogin.value.pregunta!, id!)
       .subscribe((response: ChatGPTResponse) => {
 
-        if (response && response.mensaje && response.mensaje != null) {
+        if (response && response.response && response.response != null) {
           this.respuesta = response;
         }
       });
