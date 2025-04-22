@@ -22,8 +22,8 @@ import { ResumenDiario } from '../model/resumen-diario';
 export class UsuarioService {
 
   constructor(private http:HttpClient) { }
-  //url de backend
-  url='http://localhost:9000';
+  //url de backend servidor
+  url='https://celeraai-backend.onrender.com';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/auth/login/user`,
