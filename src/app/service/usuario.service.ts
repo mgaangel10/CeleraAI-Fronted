@@ -13,6 +13,7 @@ import { FacturaResponse } from '../model/factura-response';
 import { VerFacturas } from '../model/ver-facturas';
 import { ChatGPTResponse } from '../model/gpt-response';
 import { RegisterResponse } from '../model/register-response';
+import { ResumenDiario } from '../model/resumen-diario';
 
 
 @Injectable({
@@ -468,6 +469,25 @@ ponerNoDisponible(id:string):Observable<TodosLosProductos>{
   });
 }
 
+alertas(id:string):Observable<string[]>{
+  let token = localStorage.getItem('TOKEN');
+  return this.http.get<string[]>(`${this.url}/usuario/alertas/${id}`, {
+    headers: {
+      accept: 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+}
+
+resumenDiario(id:string):Observable<ResumenDiario>{
+  let token = localStorage.getItem('TOKEN');
+  return this.http.get<ResumenDiario>(`${this.url}/usuario/resumen/diario/${id}`, {
+    headers: {
+      accept: 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+}
 
 
 

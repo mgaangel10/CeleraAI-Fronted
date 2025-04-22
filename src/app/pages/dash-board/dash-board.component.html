@@ -1,143 +1,317 @@
 <div class="w-100 d-flex">
-    <div class="w-25   align-content-center text-center" style=" background: linear-gradient(135deg, #f0f4ff, #e4f7ff); border-top-right-radius: 20px; border-bottom-right-radius: 15px; ">
-        <mat-card 
-        class="business-card-gold mb-5 mx-auto"
-        style="max-width: 500px; cursor: pointer;"
-        [routerLink]="['/home']">
-      
-        <div class="p-4 d-flex align-items-center justify-content-between">
-          <!-- Info del negocio -->
-          <div class="d-flex flex-column">
-            <span class="text-uppercase small mb-1 text-dark" style="letter-spacing: 1px;">Tu negocio</span>
-            <h4 class="mb-0 fw-bold" style="color: #7D6608;">{{ negocios.nombre }}</h4>
-          </div>
-      
-          <!-- Ícono navegación -->
-          <div class="d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm"
-               style="width: 45px; height: 45px;">
-               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-              </svg>
-          </div>
+  <div class="w-25   align-content-center text-center" style=" background: linear-gradient(135deg, #f0f4ff, #e4f7ff); border-top-right-radius: 20px; border-bottom-right-radius: 15px; ">
+      <mat-card 
+      class="business-card-gold mb-5 mx-auto"
+      style="max-width: 500px; cursor: pointer;"
+      [routerLink]="['/home']">
+    
+      <div class="p-4 d-flex align-items-center justify-content-between">
+        <!-- Info del negocio -->
+        <div class="d-flex flex-column">
+          <span class="text-uppercase small mb-1 text-dark" style="letter-spacing: 1px;">Tu negocio</span>
+          <h4 class="mb-0 fw-bold" style="color: #7D6608;">{{ negocios.nombre }}</h4>
         </div>
-      </mat-card>
-      
-      
-          <div class="h-75">
-              
-              <app-header></app-header>
-          </div>
     
-    </div>
-
+        <!-- Ícono navegación -->
+        <div class="d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm"
+             style="width: 45px; height: 45px;">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+            </svg>
+        </div>
+      </div>
+    </mat-card>
     
+    
+        <div class="h-75">
+            
+            <app-header></app-header>
+        </div>
+  
+  </div>
 
-     
+  
+
+   
 
 <!-- ENVOLTORIO GENERAL CON ALTURA LIMITADA -->
 <div class="w-100" style="height: 100%; overflow: hidden;">
+
+
+  <!-- COLUMNA PRINCIPAL - TODO EL ANCHO -->
   
-  
-    <!-- COLUMNA PRINCIPAL - TODO EL ANCHO -->
+  <div class="row w-100 g-3">
+    <!-- 📋 Resumen del negocio hoy -->
+    <mat-card class="shadow rounded-4 p-4" style="background: linear-gradient(145deg, #fdfcfb, #e2d1c3); border: 1px solid #e0c9a6;">
+      <mat-card-title class="text-center text-dark fs-5 mb-4" style="font-weight: 700; letter-spacing: 1px;">
+        ✨ Resumen de tu negocio hoy
+      </mat-card-title>
     
-      <div class="d-flex w-100">
-        <mat-card class="shadow-sm rounded-4 flex-fill w-50">
-          <mat-card-title class="text-center fs-6 fw-bold text-primary">
-            📊 Ventas Semanales (Semana {{ ventas?.semana }})
-          </mat-card-title>
-          <mat-card-content class="overflow-auto" style="max-height: 60vh;">
-            <div class="row g-2">
-              <div class="col-6" *ngFor="let dia of obtenerDiasSemana()">
-                <div class="card border-0 shadow-sm p-2 rounded-3 h-100">
-                  <span class="text-muted small">{{ dia }}</span>
-                  <h6 class="fw-bold text-success mt-1">{{ ventas.ventas[dia] | currency:'EUR' }}</h6>
-                </div>
+      <div class="row g-3 justify-content-center text-center text-md-start">
+        
+        <!-- Ventas hoy -->
+        <div class="col-12 col-md-4">
+          <div class="bg-white p-3 rounded-4 shadow-sm border-start border-4 border-success h-100">
+            <p class="text-muted mb-1">Ventas hoy</p>
+            <h5 class="fw-bold text-dark">{{ resumen.totalHoy | currency:'EUR' }} <small class="text-muted">en {{ resumen.ventasHoy }} ventas</small></h5>
+          </div>
+        </div>
+    
+        <!-- Producto top -->
+        <div class="col-12 col-md-4">
+          <div class="bg-white p-3 rounded-4 shadow-sm border-start border-4 border-primary h-100">
+            <p class="text-muted mb-1">Top producto hoy</p>
+            <h5 class="fw-bold text-dark">{{ resumen.topProducto }} <small class="text-muted">({{ resumen.cantidadTopProducto }} uds)</small></h5>
+          </div>
+        </div>
+    
+        <!-- Stock bajo -->
+        <div class="col-12 col-md-4" *ngIf="resumen.productoStockBajo">
+          <div class="bg-white p-3 rounded-4 shadow-sm border-start border-4 border-danger h-100">
+            <p class="text-muted mb-1">Producto crítico</p>
+            <h5 class="fw-bold text-danger">{{ resumen.productoStockBajo }} ({{ resumen.stockRestante }} uds)</h5>
+          </div>
+        </div>
+    
+        <!-- Caída/variación -->
+        <div class="col-12 col-md-6">
+          <div class="bg-white p-3 rounded-4 shadow-sm border-start border-4 border-warning h-100">
+            <p class="text-muted mb-1">
+              📉 Porcentaje de variación en comparación con la semana pasada
+            </p>
+        
+            <h5 class="fw-bold text-dark d-flex align-items-center gap-2">
+              {{ resumen.caidaVentasPorcentual | number:'1.0-1' }}%
+        
+              <ng-container *ngIf="resumen.caidaVentasPorcentual > 0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-chevron-up" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+                </svg>
+              </ng-container>
+              <ng-container *ngIf="resumen.caidaVentasPorcentual < 0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                </svg>
+              </ng-container>
+            </h5>
+          </div>
+        </div>
+        
+    
+        <!-- Previsión -->
+        <div class="col-12 col-md-6">
+          <div class="bg-white p-3 rounded-4 shadow-sm border-start border-4 border-info h-100">
+            <p class="text-muted mb-1">🔮 Previsión próxima semana</p>
+            <h5 class="fw-bold text-dark">{{ resumen.previsionSiguienteSemana | currency:'EUR' }}</h5>
+          </div>
+        </div>
+    
+      </div>
+    </mat-card>
+    
+
+    <!-- 📊 Ventas Semanales -->
+    <div class="col-12 col-md-6">
+      <mat-card class="shadow-sm rounded-4 w-100 h-100">
+        <mat-card-title class="text-center fs-6 fw-bold text-primary">
+          Alertas con Inteligencia Artificial sobre tu negocio
+        </mat-card-title>
+        <mat-card-content class="overflow-auto" style="max-height: 60vh;">
+          <div class="row g-2">
+            <div class="col-6" *ngFor="let dia of alert">
+              <div class="card border-0 shadow-sm p-2 rounded-3 h-100">
+                <span class="text-muted small">{{ dia }}</span>
+                
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
-
-        <div class="d-flex w-50">
-          <mat-card class="shadow-sm rounded-4 flex-fill w-100">
-            <mat-card-title class="text-center fs-6 fw-bold text-primary">🏆 Productos más vendidos</mat-card-title>
-            <mat-card-content class="mt-3">
-              <div class="row row-cols-2 g-3" style="max-height: 40vh; overflow-y: auto;">
-                <div class="col" *ngFor="let p of productos">
-                  <div class="card border-0 shadow-sm rounded-3 h-100">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                      <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h6 class="fw-bold mb-0">{{ p.nombre }}</h6>
-                        <span class="badge bg-success rounded-pill">{{ p.precio }}€</span>
-                      </div>
-                      <div class="text-muted small">Stock: {{ p.stock }}</div>
-                      <div class="progress mt-2" style="height: 6px;">
-                        <div class="progress-bar bg-success"
-                             role="progressbar"
-                             [style.width.%]="getStockPercentage(p.stock)"
-                             [attr.aria-valuenow]="p.stock"
-                             attr.aria-valuemin="0"
-                             attr.aria-valuemax="100">
-                        </div>
-                      </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  
+    <!-- 🏆 Productos más vendidos -->
+    <div class="col-12 col-md-6">
+      <mat-card class="shadow-sm rounded-4 w-100 h-100">
+        <mat-card-title class="text-center fs-6 fw-bold text-primary">🏆 Productos más vendidos</mat-card-title>
+        <mat-card-content class="mt-3">
+          <div class="row row-cols-2 g-3" style="max-height: 40vh; overflow-y: auto;">
+            <div class="col" *ngFor="let p of productos">
+              <div class="card border-0 shadow-sm rounded-3 h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h6 class="fw-bold mb-0 text-truncate">{{ p.nombre }}</h6>
+                    <span class="badge bg-success rounded-pill">{{ p.precio }}€</span>
+                  </div>
+                  <div class="text-muted small">Stock: {{ p.stock }}</div>
+                  <div class="progress mt-2" style="height: 6px;">
+                    <div class="progress-bar bg-success"
+                        role="progressbar"
+                        [style.width.%]="getStockPercentage(p.stock)"
+                        [attr.aria-valuenow]="p.stock"
+                        attr.aria-valuemin="0"
+                        attr.aria-valuemax="100">
                     </div>
                   </div>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
 
-      <!-- 📈 Estadísticas de Ventas -->
     <!-- 📈 Estadísticas de Ventas -->
-    
-        
-      <!-- 📈 Gráfico - 50% -->
-      <div class="w-75 mx-auto">
-        <mat-card class="shadow-lg rounded-4 w-100">
-          <mat-card-title class="fs-5 fw-bold text-primary mb-3">📈 Estadísticas de Ventas</mat-card-title>
-          <mat-card-content class="d-flex flex-column mx-auto" style="overflow: hidden;">
+  <!-- 📈 Estadísticas de Ventas -->
+  
       
-            <!-- Filtros -->
-            <div class="d-flex align-items-center gap-3 mb-4 flex-wrap">
-              <button class="btn btn-outline-info" (click)="cambiarGrafico('semanal')">📆 Ventas Semanales</button>
-              <button class="btn btn-outline-info" (click)="cambiarGrafico('mensual')">📅 Ventas Mensuales</button>
-              <mat-form-field appearance="outline" class="mb-0 flex-grow-1">
-                <mat-label>Previsión máxima (€)</mat-label>
-                <input matInput type="number" [value]="yMax" (input)="actualizarYMaximo($event)">
-              </mat-form-field>
-            </div>
-      
-            <!-- Gráfico -->
-            <div class="d-flex align-items-center justify-content-center" style="width: 100%; overflow-x: auto;">
-              <ngx-charts-bar-vertical *ngIf="mostrarVentasSemanales"
-                [view]="[700,300]" [results]="ventasData" [xAxis]="showXAxis"
-                [yAxis]="showYAxis" [gradient]="gradient"
-                [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel"
-                [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel"
-                [yScaleMax]="yMax">
-              </ngx-charts-bar-vertical>
-      
-              <ngx-charts-bar-vertical *ngIf="!mostrarVentasSemanales"
-                [view]="[700,300]" [results]="ventasData" [xAxis]="showXAxis"
-                [yAxis]="showYAxis" [gradient]="gradient"
-                [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="'Mensual'"
-                [showYAxisLabel]="showYAxisLabel" [yAxisLabel]="yAxisLabel"
-                [yScaleMax]="yMax">
-              </ngx-charts-bar-vertical>
-            </div>
-      
-          </mat-card-content>
-        </mat-card>
-      </div>
-      
-
-
+    <!-- 📈 Gráfico - 50% -->
    
+
+    <!-- Botones de control -->
+<!-- Botones -->
+
+
+<!-- Gráfico -->
+<!-- Gráfico -->
+ 
+<div class="w-100 mt-3 h-100">
+  <mat-card class="shadow rounded-4 p-3" style="max-width: 700px; margin: 0 auto;">
+    <mat-card-title class="text-center fs-5 fw-bold text-primary">📊 Ventas Semanales (Semana {{ ventas?.semana }})</mat-card-title>
+    <mat-card-content>
+      <div style="overflow-x: auto;">
+        <canvas baseChart
+          #chart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'">
+        </canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!-- 📅 CALENDARIO DE VENTAS -->
+<div class="mt-3 mb-3">
+  <mat-card class="rounded-4 shadow-sm">
+    <mat-card-title class="text-center text-primary fs-5 mb-3">
+      🗓️ Calendario de ventas
+    </mat-card-title>
+
+    <!-- Cabecera del calendario -->
+    <div class="d-flex justify-content-center align-items-center mb-3">
+      <button class="btn btn-sm btn-outline-secondary me-2" (click)="cambiarMes(-1)">←</button>
+      <h5 class="mb-0">{{ meses[mesActual] }} {{ anioActual }}</h5>
+      <button class="btn btn-sm btn-outline-secondary ms-2" (click)="cambiarMes(1)">→</button>
+    </div>
+
+    <!-- Días de la semana -->
+    <div class="row text-center fw-bold">
+      <div class="col border py-1" *ngFor="let dia of diasSemana">{{ dia }}</div>
+    </div>
+
+    <!-- Días del calendario -->
+    <div *ngFor="let semana of calendario" class="row text-center">
+      <div *ngFor="let dia of semana" class="col border p-2">
+     <!-- Día con ventas -->
+<button *ngIf="dia.hayVenta"
+class="btn btn-success btn-sm rounded-circle fw-bold"
+style="width: 32px; height: 32px; padding: 0;"
+(click)="abrirModalVentas(dia.dia)">
+{{ dia.dia }}
+</button>
+
+<!-- Día sin ventas pero válido -->
+<span *ngIf="!dia.hayVenta && dia.dia !== 0">
+{{ dia.dia }}
+</span>
+
+<!-- Espacio vacío para celdas fuera del mes -->
+<span *ngIf="dia.dia === 0"> </span>
+
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #modalContenido let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title ">🧾 Listas de ventas de ese dia</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <div *ngIf="ventasSeleccionadas.length === 0" class="text-muted">No hay ventas para este día.</div>
+
+<div ngbAccordion #accordion="ngbAccordion" *ngFor="let v of ventasSeleccionadas">
+	<div ngbAccordionItem="first">
+		<h2 ngbAccordionHeader>
+			<button ngbAccordionButton>{{ v.total | currency:'EUR' }}-> Ver detalles de esa venta</button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
+          <div class="mb-3">
+            <p class="mb-1"><strong>Estado:</strong>
+              <span class="badge bg-{{ !v.terminado ? 'success' : 'warning' }}">
+                {{ v.terminado ? 'No ditable' : 'Editable' }}
+              </span>
+            </p>
+            <p class="mb-1"><strong>Fecha:</strong> {{ v.fecha | date:'short' }}</p>
+            <strong>Factura: </strong>
+            <p class="mb-1 badge bg-{{ v.factura ? 'success' : 'warning' }}"> {{  v.factura ? 'Con factura' : 'Sin factura' }}</p>
+          </div>
   
-
-
-
+          <!-- Detalles de productos -->
+          <h6 class="text-muted">🛍 Productos vendidos:</h6>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                *ngFor="let det of v.detalleVentas">
+              <div>
+                <strong>{{ det.nombreProducto }}</strong> ({{ det.cantida }} uds)
+              </div>
+              <span>{{ det.precioProducto * det.cantida | currency:'EUR' }}</span>
+            </li>
+          </ul>
   
+          <!-- Total -->
+          <div class="mt-3 text-end">
+            <strong>Total: {{ v.total | currency:'EUR' }}</strong>
+          </div>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<hr />
+
+
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+
+ 
+
+
+
+
+
 
 </div>

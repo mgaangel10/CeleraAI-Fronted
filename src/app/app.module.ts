@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { NgbAccordionModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgChartsModule } from 'ng2-charts';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InicioSesionPageComponent } from './pages/inicio-sesion-page/inicio-sesion-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -23,11 +26,15 @@ import { VentasComponent } from './pages/ventas/ventas.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormField } from '@angular/material/form-field';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { MatInputModule } from '@angular/material/input';
+import { CalendarModule } from 'angular-calendar';
+import { DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatLabel } from '@angular/material/form-field';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 import { AsistenteComponent } from './pages/asistente/asistente.component';
+import { RutaOcultaComponentComponent } from './componentes/ruta-oculta-component/ruta-oculta-component.component';
 
 @NgModule({
   declarations: [
@@ -42,21 +49,29 @@ import { AsistenteComponent } from './pages/asistente/asistente.component';
     VentasComponent,
     EstadisticasComponent,
     FacturaComponent,
-    AsistenteComponent
+    AsistenteComponent,
+    RutaOcultaComponentComponent
   ],
   imports: [
     BrowserModule,
     MatDividerModule,
+    NgChartsModule,
     FormsModule,
+    MatInputModule,
     AppRoutingModule,
     NgxPaginationModule,
     MatLabel,
+    
     ReactiveFormsModule,
     MatFormField,
     MatCardModule,
     MarkdownModule,
     MatChipsModule,
     NgxChartsModule,
+    NgbAccordionModule,
+    NgbCollapseModule,
+        CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+
     MatProgressBarModule,
     HttpClientModule,
     

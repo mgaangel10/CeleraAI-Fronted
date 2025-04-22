@@ -11,6 +11,7 @@ import { AsistenteComponent } from './pages/asistente/asistente.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { AuthguardService } from './service/authguard.service';
 import { RegistroPageComponent } from './pages/registro-page/registro-page.component';
+import { RutaOcultaComponentComponent } from './componentes/ruta-oculta-component/ruta-oculta-component.component';
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent,canActivate: [AuthguardService] },
@@ -23,6 +24,8 @@ const routes: Routes = [
   { path: 'ventas/:idNegocio', component: VentasComponent,canActivate: [AuthguardService]},
   { path: 'inventario/:idNegocio', component: InventarioComponent,canActivate: [AuthguardService]},
   { path: 'dash-board/:idNegocio', component: DashBoardComponent,canActivate: [AuthguardService]},
+  { path: 'go/:data', component: RutaOcultaComponentComponent },
+
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
