@@ -23,7 +23,8 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
   //url de backend servidor
-  url='https://celeraai-backend.onrender.com';
+  //url='https://celeraai-backend.onrender.com';
+  url='http://localhost:9000';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/auth/login/user`,
@@ -489,6 +490,25 @@ resumenDiario(id:string):Observable<ResumenDiario>{
   });
 }
 
+usarAsistenteIA(id:string,mensaje: string, archivo?: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('mensaje', mensaje);
+  formData.append('nombre', 'Miguel Ángel'); // 👈 O lo que quieras dinámico
+  formData.append('empresa', 'Bizyvel'); // 👈 O lo que quieras dinámico
+
+  if (archivo) {
+    formData.append('archivo', archivo);
+  }
+
+  const token = localStorage.getItem('TOKEN');
+
+  return this.http.post<any>(`http://localhost:8000/asistente/accion/${id}`, formData, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      // No pongas "Content-Type" manual porque FormData lo pone solo 👈 muy importante
+    }
+  });
+}
 
 
 

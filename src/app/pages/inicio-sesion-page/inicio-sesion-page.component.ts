@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class InicioSesionPageComponent implements OnInit{
   loginError: string = '';
+  cargando: boolean = false;
 
   constructor(private service:UsuarioService,private router: Router){}
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class InicioSesionPageComponent implements OnInit{
 
   login() {
     console.log('Datos enviados al servidor:', this.profileLogin.value);
-  
+    this.cargando = true;
     this.service.LoginResponseAdministrador(this.profileLogin.value.email!, this.profileLogin.value.password!)
       .subscribe({
         next: (l: LoginResponse) => {
@@ -36,8 +37,12 @@ export class InicioSesionPageComponent implements OnInit{
           this.router.navigate(['/home']);
         },
         error: (err) => {
+          this.cargando = false;
           console.error('Login incorrecto:', err);
           this.loginError = 'El email o la contraseña no son correctos.';
+        },
+         complete: () => {
+          this.cargando = false; // 👈 Cuando termina (bien o mal), quita el spinner
         }
       });
   }

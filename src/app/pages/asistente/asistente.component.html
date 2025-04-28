@@ -32,7 +32,12 @@
         <h3 class="text-center w-100 pt-4">Asistente de negocio con IA</h3>
         
         <div class="w-100 py-4 d-flex justify-content-center align-items-center flex-grow-1">
-            <div class="card shadow-lg rounded-4 border-0 w-75" 
+            <div *ngIf="cargando" class="d-flex justify-content-center align-items-center w-75" style="height: 400px;">
+                <div class="spinner-grow text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            <div *ngIf="!cargando" class="card shadow-lg rounded-4 border-0 w-75" 
                  style="background: linear-gradient(135deg, #1e1e2f, #3b3b58); color: white;">
                 <div class="card-header text-center border-0" 
                      style="background: transparent; font-weight: bold; font-size: 1.2rem;">
@@ -56,8 +61,10 @@
                        </svg>
 
                         </div>
-                        <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.1);">
-                             {{ respuesta.response }}
+                        
+                        <div class="p-3 rounded-3 w-75" style="background: rgba(255, 255, 255, 0.1);">
+                            <pre>{{ respuesta.response }}</pre>
+
                         </div>
                     </div>
                 </div>
@@ -65,8 +72,13 @@
                     <form [formGroup]="profileLogin" (ngSubmit)="preguntar()">
                         <div class="input-group">
                             <input type="text" formControlName="pregunta" class="form-control rounded-start-3 border-0" 
-                                   placeholder="Escribe un mensaje..." 
-                                   style="background: rgba(255, 255, 255, 0.1); color: white;">
+    placeholder="Escribe un mensaje..." 
+    style="background: rgba(255, 255, 255, 0.1); color: white;">
+
+<input type="file" (change)="onArchivoSeleccionado($event)" class="form-control rounded-start-3 border-0" 
+    style="background: rgba(255, 255, 255, 0.1); color: white;">
+
+
                             <button type="submit" class="btn btn-primary rounded-end-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
