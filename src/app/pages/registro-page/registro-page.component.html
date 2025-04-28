@@ -52,7 +52,12 @@
 
           <!-- Botón -->
           <div class="mb-4">
-            <button type="submit" class="btn btn-primary w-100"
+            <div *ngIf="cargando" class="d-flex justify-content-center align-items-center w-75" style="height: 400px;">
+              <div class="spinner-grow text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            <button *ngIf="!cargando" type="submit" class="btn btn-primary w-100"
                     style="border-radius: 12px; height: 50px; font-size: 1.1rem; font-weight: 600;">
               Crear cuenta
             </button>
@@ -69,4 +74,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="loginError" class="alert alert-danger text-center mt-3 mx-auto" style="max-width: 420px;">
+  {{ loginError }}
 </div>

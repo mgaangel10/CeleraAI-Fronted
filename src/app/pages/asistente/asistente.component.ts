@@ -13,27 +13,49 @@ export class AsistenteComponent implements OnInit{
 
   respuesta!: ChatGPTResponse;
   nombre!: string;
+  archivoSeleccionado: File | null = null;
+  cargando: boolean = false;
 
   constructor(private service: UsuarioService) {}
 
   ngOnInit(): void {
     this.nombre = localStorage.getItem('NOMBRE') || '';  
   }
-
   profileLogin = new FormGroup({
     pregunta: new FormControl(''),
+    archivo: new FormControl<File | null>(null)
   });
+  onArchivoSeleccionado(event: any) {
+    this.archivoSeleccionado = event.target.files[0];
+  }
+  
 
   preguntar() {
-    
     console.log('Datos enviados al servidor:', this.profileLogin.value);
     let id = localStorage.getItem('IDNEGOCIO');
-    this.service.preguntarAsistente(this.profileLogin.value.pregunta!, id!)
-      .subscribe((response: ChatGPTResponse) => {
-
-        if (response && response.response && response.response != null) {
-          this.respuesta = response;
+    let mensaje = this.profileLogin.value.pregunta!;
+  
+    this.cargando = true; // 👈 Antes de lanzar la petición, activa el spinner
+  
+    this.service.usarAsistenteIA(id!, mensaje, this.archivoSeleccionado!)
+      .subscribe({
+        next: (response: ChatGPTResponse) => {
+          console.log("🚀 Respuesta de IA:", response);
+          if (response && response.response && response.response != null) {
+            this.respuesta = response;
+          }
+        },
+        error: (error) => {
+          this.cargando = false;
+          console.error("❌ Error al consultar la IA:", error);
+          
+        },
+        complete: () => {
+          this.cargando = false; // 👈 Cuando termina (bien o mal), quita el spinner
         }
       });
   }
+  
+  
+  
 }
