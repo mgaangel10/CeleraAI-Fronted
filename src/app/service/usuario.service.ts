@@ -23,8 +23,8 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
   //url de backend servidor
-  //url='https://celeraai-backend.onrender.com';
-  url='http://localhost:9000';
+  url='https://celeraai-backend.onrender.com';
+  //url='http://localhost:9000';
 
   LoginResponseAdministrador(email: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.url}/auth/login/user`,
@@ -502,7 +502,7 @@ usarAsistenteIA(id:string,mensaje: string, archivo?: File): Observable<any> {
 
   const token = localStorage.getItem('TOKEN');
 
-  return this.http.post<any>(`http://localhost:8000/asistente/accion/${id}`, formData, {
+  return this.http.post<any>(`https://bizyvelai.onrender.com/asistente/accion/${id}`, formData, {
     headers: {
       'Authorization': `Bearer ${token}`,
       // No pongas "Content-Type" manual porque FormData lo pone solo 👈 muy importante
