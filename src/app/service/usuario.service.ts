@@ -509,7 +509,16 @@ usarAsistenteIA(id:string,mensaje: string, archivo?: File): Observable<any> {
     }
   });
 }
+enviarFacturaPython(factura: VerFacturas): Observable<any> {
+  return this.http.post<any>('http://localhost:8000/factura', factura);
+}
 
+
+enviarFacturaYDescargarPDF(factura: VerFacturas): Observable<Blob> {
+  return this.http.post('http://localhost:8000/factura/pdf', factura, {
+    responseType: 'blob'  // 👈 Esto es lo más importante
+  });
+}
 
 
 

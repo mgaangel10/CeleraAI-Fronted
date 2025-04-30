@@ -29,8 +29,13 @@
           </div>
     
     </div>
+    
     <div class="container-fluid py-4">
-
+      <div *ngIf="mostrarAlerta" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {{ mensajeAlerta }}
+        <a *ngIf="linkFactura" [href]="linkFactura" download="factura.pdf" class="btn btn-sm btn-outline-success ms-2">Descargar ahora</a>
+        <button type="button" class="btn-close" (click)="cerrarAlerta()" aria-label="Close"></button>
+      </div>
       <!-- RESUMEN EN TARJETAS -->
       <div class="row g-4 mb-5">
         <!-- Tarjeta 1 -->
@@ -323,8 +328,22 @@
   </div>
 
   <div class="modal-footer border-0">
+    <!-- factura.component.html -->
+    <button
+    *ngIf="facturaSeleccionada?.ventaDto"
+    (click)="generarFacturaPDF()"
+    class="btn-ia"
+  >
+    🤖 Generar PDF con IA
+  </button>
+
     <button type="button" class="btn btn-outline-secondary rounded-3 fw-semibold" (click)="d('Close click')">
       Cerrar
     </button>
   </div>
 </ng-template>
+
+<!-- ALERTA DE BOOTSTRAP -->
+
+
+

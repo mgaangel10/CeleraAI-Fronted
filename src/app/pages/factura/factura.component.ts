@@ -18,11 +18,16 @@ export class FacturaComponent implements OnInit{
   ventas: VentaDto [] = [];
   totalSinFacturar: number = 0;
 totalFacturado: number = 0;
+mensajeAlerta: string = '';
+linkFactura: string = '';
+mostrarAlerta: boolean = false;
 
   nombre!: string;
   idVenta!:string;
   idFactura!:string;
   detallesFactura!:VerFacturas;
+  facturaSeleccionada!: VerFacturas;
+
   facturas:VerFacturas [] = [];
 
   constructor(private service:UsuarioService,	config: NgbModalConfig,
@@ -36,6 +41,7 @@ totalFacturado: number = 0;
     this.nombre = localStorage.getItem('NOMBRE') || '';
     this.ventasSinFacturas();
     this.verFacturas();
+    
   }
 
   ventasSinFacturas(){
@@ -58,6 +64,7 @@ totalFacturado: number = 0;
   verDetallesFacturas(id:string){
     this.service.VerDetallesFacturas(id).subscribe(r=>{
       this.detallesFactura = r;
+      this.facturaSeleccionada = r;
     })
   }
 
@@ -94,6 +101,50 @@ totalFacturado: number = 0;
 
       });
   }
+  cerrarAlerta() {
+    this.mostrarAlerta = false;
+    this.mensajeAlerta = '';
+    this.linkFactura = '';
+  }
+  
+
+  generarFacturaPDF() {
+      
+    this.service.enviarFacturaPython(this.facturaSeleccionada).subscribe({
+      next: (res) => {
+        this.generarYDescargarFacturaPDF();
+      },
+      error: (err) => {
+        console.error("❌ Error al generar la factura:", err);
+        console.log("FACTURA ENVIADA >>>",this.facturaSeleccionada);
+
+        alert("Error al generar la factura.");
+      }
+    });
+  }
+
+  generarYDescargarFacturaPDF() {
+    this.service.enviarFacturaYDescargarPDF(this.facturaSeleccionada).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+  
+        this.mensajeAlerta = '✅ ¡Factura generada correctamente!';
+        this.linkFactura = url;
+        this.mostrarAlerta = true;
+      },
+      error: (err) => {
+        console.error("❌ Error al generar la factura:", err);
+        this.mensajeAlerta = '❌ Error al generar la factura.';
+        this.linkFactura = '';
+        this.mostrarAlerta = true;
+      }
+    });
+  }
+  
+  
+  
+  
+  
 
 
 
