@@ -510,12 +510,12 @@ usarAsistenteIA(id:string,mensaje: string, archivo?: File): Observable<any> {
   });
 }
 enviarFacturaPython(factura: VerFacturas): Observable<any> {
-  return this.http.post<any>('http://localhost:8000/factura', factura);
+  return this.http.post<any>('https://bizyvelai.onrender.com/factura', factura);
 }
 
 
 enviarFacturaYDescargarPDF(factura: VerFacturas): Observable<Blob> {
-  return this.http.post('http://localhost:8000/factura/pdf', factura, {
+  return this.http.post('https://bizyvelai.onrender.com/factura/pdf', factura, {
     responseType: 'blob'  // 👈 Esto es lo más importante
   });
 }
