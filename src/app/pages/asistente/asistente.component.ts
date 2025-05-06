@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatGPTResponse } from '../../model/gpt-response';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UsuarioService } from '../../service/usuario.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-asistente',
@@ -16,7 +17,7 @@ export class AsistenteComponent implements OnInit{
   archivoSeleccionado: File | null = null;
   cargando: boolean = false;
 
-  constructor(private service: UsuarioService) {}
+  constructor(private service: UsuarioService,private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.nombre = localStorage.getItem('NOMBRE') || '';  
@@ -28,7 +29,9 @@ export class AsistenteComponent implements OnInit{
   onArchivoSeleccionado(event: any) {
     this.archivoSeleccionado = event.target.files[0];
   }
-  
+  open3(modalEjemploExcel:any) {
+		this.modalService.open(modalEjemploExcel);
+	}
 
   preguntar() {
     console.log('Datos enviados al servidor:', this.profileLogin.value);

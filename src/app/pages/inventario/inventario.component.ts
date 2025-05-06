@@ -159,6 +159,9 @@ export class InventarioComponent implements OnInit{
   open(content:any) {
 		this.modalService.open(content);
 	}
+  open3(modalEjemploExcel:any) {
+		this.modalService.open(modalEjemploExcel);
+	}
 
   open2(contentE: any, id: string) {
     this.productoId = id;
